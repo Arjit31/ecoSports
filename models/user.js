@@ -18,6 +18,13 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    type: {
+        type: String,
+        required: true
+    },
+    imgURL: {
+        type: String
     }
 })
 

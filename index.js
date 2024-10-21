@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotevn = require('dotenv');
 const authRoute = require('./routes/auth');
+const userRoute = require('./routes/user');
 const cookieParser = require('cookie-parser');
 const app = express();
 
@@ -22,5 +23,6 @@ app.get('/', function(req, res){
 })
 
 app.use('/auth', authRoute);
+app.use('/user', userRoute);
 
 app.listen(3000);
