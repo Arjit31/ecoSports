@@ -23,8 +23,8 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    imgURL: {
-        type: String
+    batches: {
+        type:[String]
     }
 })
 

@@ -1,10 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotevn = require('dotenv');
+const { createServer } = require('http');
+const { Server } = require('socket.io');
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/user');
+const batchRoute = require('./routes/batch');
+const imageRoute = require('./routes/image');
+const roomRoute = require('./routes/room');
 const cookieParser = require('cookie-parser');
 const app = express();
+const httpServer = createServer(app);  // Create HTTP server
+const io = new Server(httpServer);     // Attach socket.io to HTTP server
 
 dotevn.config();
 app.use(express.json());
@@ -24,5 +31,9 @@ app.get('/', function(req, res){
 
 app.use('/auth', authRoute);
 app.use('/user', userRoute);
+app.use('/batch', batchRoute);
+app.use('/image', imageRoute);
+app.use('/room', roomRoute(io));
 
-app.listen(3000);
+httpServer.listen(3000);
+

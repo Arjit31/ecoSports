@@ -62,4 +62,20 @@ async function deleteUser(req, res, next){
     }
 }
 
-module.exports = {getUser, updateUser, deleteUser};
+async function getUserBatch(req, res, next){
+    if(req.user.id == req.params.id){
+        try
+        {
+            const user = await User.findOne({_id: req.user.id});
+            res.status(200).json(user.batches);
+        }
+        catch(err) {
+            next(err);
+        }
+    }
+    else{
+        next(errorHandler(401, "Thats not your account!!"));
+    }
+}
+
+module.exports = {getUser, updateUser, deleteUser, getUserBatch};
